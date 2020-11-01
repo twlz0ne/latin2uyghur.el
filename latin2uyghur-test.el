@@ -23,13 +23,12 @@
 (when noninteractive
   (transient-mark-mode))
 
-(ert-deftest latin2uyghur-test-u2l-1 ()
-  (should
-   (string= "yëngi yëziq örügüc" (latin2uyghur-u2l "يېڭى يېزىق ئۆرۈگۈچ"))))
-
-(ert-deftest latin2uyghur-test-l2u-1 ()
-  (should
-   (string= "يېڭى يېزىق ئۆرۈگۈچ" (latin2uyghur-l2u "yëngi yëziq örügüc"))))
+(ert-deftest latin2uyghur-test ()
+  (mapc (lambda (it)
+          (should (string= (latin2uyghur-l2u (car it)) (cdr it)))
+          (should (string= (latin2uyghur-u2l (cdr it)) (car it))))
+        '(("chong texse toxu qorumisi" . "چوڭ تەخسە توخۇ قورۇمىسى")
+          ("yëngi yëziq örügüch" . "يېڭى يېزىق ئۆرۈگۈچ"))))
 
 (provide 'latin2uyghur-test)
 
